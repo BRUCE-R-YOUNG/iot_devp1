@@ -31,11 +31,11 @@ from datetime import datetime
 from awscrt import io, mqtt
 from awsiot import iotshadow, mqtt_connection_builder
 
-#comment out
 #from get_data import DHT
 
-#add these codes
+
 import cgsensor  # インポート
+
 
 bme280 = cgsensor.BME280(i2c_addr=0x77)  # BME280制御クラスのインスタンス, i2c_addrは0x76/0x77から選択
 
@@ -321,7 +321,6 @@ def device_main():
     """
     global device_name, mqtt_connection, shadow_client
 
-    #commnet out the code
     #sensor = DHT('11', 16)
 
     init_info = arg_check()
@@ -407,16 +406,11 @@ def device_main():
     logging.info("topic: %s", topic)
     while True:
         now = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
-        
-        #comment out the code
         #humi, temp = sensor.read()
-        
-        #add these codes
         temp= format(bme280.temperature)
         humi= format(bme280.humidity)
         pre = format(bme280.pressure)
         
-        #edit the code
         payload = {"DEVICE_NAME": device_name, "TIMESTAMP": now, "TEMPERATURE": str(temp), "HUMIDITY": str(humi),"PRESSURE": str(pre)}
         logger.debug("  payload: %s", payload)
 
